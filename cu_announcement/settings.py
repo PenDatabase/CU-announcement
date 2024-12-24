@@ -82,6 +82,9 @@ TEMPLATES = [
     },
 ]
 
+
+
+
 WSGI_APPLICATION = 'cu_announcement.wsgi.application'
 
 

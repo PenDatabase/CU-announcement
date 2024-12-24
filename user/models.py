@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 
 
 class College(models.Model):
@@ -42,13 +44,22 @@ class Course(models.Model):
 class Lecturer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    phone_number = models.IntegerField(null=True)
+    validated = models.BooleanField(default=False)
+
 
     def college(self):
         return self.department.college
 
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
+
+
+def validate_reg_no(value):
+    if len(str(value)) != 7:
+        raise ValidationError("Not a valid registration number")
+    
 
 
 class Student(models.Model):
@@ -60,8 +71,11 @@ class Student(models.Model):
         "500": "500 Level",
     }
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    matric_no = models.CharField(max_length=10, validators=[RegexValidator(r"^[0-9]{2}+[a-z]{2}+[0-9]{6}$")])
+    reg_no = models.IntegerField(validators=[validate_reg_no])
     program = models.ForeignKey(Program, on_delete=models.SET_NULL, null=True)
     level = models.IntegerField(choices=LEVELS)
 
     def college(self):
         return self.program.department.college
+
