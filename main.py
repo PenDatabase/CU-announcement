@@ -1,6 +1,6 @@
 import re
 
-pattern = r"^[0-9]{2}+[a-zA-Z]{2}+[0-9]{6}$"
+pattern = r"^[a-z]+(-[a-z]+)*\.\d{7}@stu\.cu\.edu\.ng$"
 
 while True:
     user_input = input("Enter test: ")
