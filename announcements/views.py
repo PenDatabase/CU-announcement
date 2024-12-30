@@ -5,3 +5,8 @@ from django.shortcuts import render
 
 def home(request):
     return render(request, "announcements/home.html")
+
+
+
+def official(request):
+    return render(request, "announcements/official.html")

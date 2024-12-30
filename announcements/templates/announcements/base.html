@@ -174,7 +174,7 @@
     </div>
 
     <div class="profile-menu">
-        <div class="profile-dropdown" id="profileDropdown">
+        <div class="profile-dropdown bg-warning" id="profileDropdown">
             <img src="https://via.placeholder.com/30" alt="Profile Picture" class="profile-img">
             <span>John</span>
         </div>
@@ -188,9 +188,9 @@
     <div class="sidebar" id="sidebar">
         <h3 class="text-center text-white py-3">CU Notice Board</h3>
         <hr class="text-white">
-        <a href="#">Home</a>
+        <a href="{% url 'home' %}">Home</a>
         <a href="#">Academic</a>
-        <a href="#">Official</a>
+        <a href="{% url 'official' %}">Official</a>
         <a href="#">Events</a>
         <a href="#">Lost and Found</a>
         <a href="#">Others</a>
