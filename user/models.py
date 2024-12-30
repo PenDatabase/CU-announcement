@@ -43,13 +43,13 @@ class Program(models.Model):
 
 
 # Model for Courses
-class Course(models.Model):
-    title = models.CharField(max_length=255)
-    code = models.CharField(max_length=8, unique=True)
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
+# class Course(models.Model):
+#     title = models.CharField(max_length=255)
+#     code = models.CharField(max_length=8, unique=True)
+#     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
 
-    def __str__(self):
-        return f"{self.code} - {self.title}"
+#     def __str__(self):
+#         return f"{self.code} - {self.title}"
 
 
 
@@ -101,6 +101,13 @@ class Student(models.Model):
 
     def college(self):
         return self.program.department.college
+    
+    def __str__(self):
+        if self.user.first_name and self.user.last_name:
+            return f"{self.user.first_name} {self.user.last_name}"
+        else:
+            return f"{self.reg_no}"
+    
 
 
 
@@ -130,6 +137,8 @@ class Staff(models.Model):
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} ({self.office})"
 
+    class Meta:
+        verbose_name_plural = "Staff"
 
 
 # Model for Organizations

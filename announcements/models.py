@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
-from user.models import Lecturer, Staff, Organization
+from django.contrib.auth.models import User
 
 
 
 # Create your models here.
-class announcements(models.Model):
+class Announcement(models.Model):
     announcement_categories = [
         ('Academic','Academic'),
         ('Events','Events'),
@@ -16,9 +16,9 @@ class announcements(models.Model):
     ]
 
     title = models.CharField(max_length=256)
-    categories = models.CharField(max_length=50 , choices= announcement_categories)
+    category = models.CharField(max_length=50 , choices= announcement_categories)
     content = models.TextField()
-    post_time = models.DateTimeField()
+    post_time = models.DateTimeField(auto_now=True)
 
     # Implementing a GenericForeignKey so that the announcer can either be a staff, lecturer or organization
     announcer_type = models.ForeignKey(
@@ -35,9 +35,11 @@ class announcements(models.Model):
     def __str__(self):
         return self.title
     
+    
 
-class comments(models.Model):
-    announcement = models.ForeignKey(announcements, on_delete=models.CASCADE, related_name="comments")
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    announcement = models.ForeignKey(Announcement, on_delete=models.CASCADE, related_name="comments")
     content = models.CharField(max_length=1000)
     post_time = models.DateTimeField(auto_now=True)
 

@@ -5,6 +5,7 @@ from . import models
 
 class CollegeAdmin(admin.ModelAdmin):
     list_display = ["__str__", "student_count", "lecturer_count"]
+    
 
     def student_count(self, college):
         return college.student_count
@@ -20,6 +21,9 @@ class CollegeAdmin(admin.ModelAdmin):
 
 
 
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "reg_no"]
+    list_select_related = ["user"]
 
 
 
@@ -27,11 +31,11 @@ class CollegeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.College, CollegeAdmin)
-admin.site.register(models.Course)
+# admin.site.register(models.Course)
 admin.site.register(models.Department)
 admin.site.register(models.Lecturer)
 admin.site.register(models.Program)
-admin.site.register(models.Student)
+admin.site.register(models.Student, StudentAdmin)
 admin.site.register(models.Organization)
 admin.site.register(models.Staff)
 
