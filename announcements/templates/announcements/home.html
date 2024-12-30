@@ -1,0 +1,29 @@
+{% extends 'announcements/base.html' %}
+
+
+{% block body %}
+    <div class="container-md main-content" id="mainContent">
+        <h1 class="text-center">Dashboard</h1>
+        <p class="text-center">Latest announcements for students</p>
+
+        <!-- Latest Announcements -->
+        <div class="announcement-card card">
+            <div class="card-body">
+                <h5 class="card-title"><a href="#">CU League Coming Soon!</a></h5>
+                <p class="card-text">Organizer: Organization - CU Sports Club</p>
+                <p class="card-text"><small class="text-muted">Announced on: 30th Dec 2024</small></p>
+                <p class="card-text">Join the excitement at the upcoming CU League. Get ready to cheer for your favorite team!</p>
+            </div>
+        </div>
+
+        <div class="announcement-card card">
+            <div class="card-body">
+                <h5 class="card-title"><a href="#">Important Meeting by the DSA</a></h5>
+                <p class="card-text">Announcer: Staff - Obi Charles</p>
+                <p class="card-text"><small class="text-muted">Announced on: 29th Dec 2024</small></p>
+                <p class="card-text">All students are invited to an important meeting scheduled for Monday at 10:00 AM in the chapel.</p>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+    

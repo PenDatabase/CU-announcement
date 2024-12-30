@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     # My Custom apps
     'user',
+    'announcements',
 
     # Third-party apps
     'widget_tweaks',  # For customizing form widgets in templates

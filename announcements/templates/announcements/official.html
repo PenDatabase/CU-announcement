@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CU Notice Board - Official</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #f8f9fa;
+            --sidebar-bg: #343a40;
+            --sidebar-hover: #495057;
+            --text-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+        }
+
+        .sidebar {
+            height: 100vh;
+            background-color: var(--sidebar-bg);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            transition: transform 0.3s ease;
+            z-index: 1040;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+            padding: 10px 20px;
+        }
+
+        .sidebar a:hover {
+            background-color: var(--sidebar-hover);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.full-width {
+            margin-left: 0;
+        }
+
+        .announcement-card {
+            margin-bottom: 20px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .announcement-card .card-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .announcement-card .card-title a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-menu {
+            position: fixed;
+            top: 10px;
+            right: 15px;
+            z-index: 1050;
+        }
+
+        .profile-dropdown {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 10px;
+        }
+
+        .profile-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .profile-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .profile-dropdown-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        .profile-dropdown-menu a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            margin: 10px;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1051;
+            background-color: #ffffff;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            padding: 10px;
+            transition: left 0.3s ease;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px 0;
+            background-color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-250px);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: inline-block;
+            }
+        }
+
+        @media (min-width: 769px) {
+            /* Sidebar expanded, button moves right */
+            .sidebar.active ~ .menu-toggle {
+                left: 260px;
+            }
+
+            /* Ensure menu button stays at left when sidebar is collapsed */
+            .sidebar ~ .menu-toggle {
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="profile-menu">
+        <div class="profile-dropdown" id="profileDropdown">
+            <img src="https://via.placeholder.com/30" alt="Profile Picture" class="profile-img">
+            <span>John</span>
+        </div>
+        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+            <a href="#">Login</a>
+        </div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <h3 class="text-center text-white py-3">CU Notice Board</h3>
+        <a href="#">Home</a>
+        <a href="#">Academic</a>
+        <a href="#">Official</a>
+        <a href="#">Events</a>
+        <a href="#">Lost and Found</a>
+        <a href="#">Others</a>
+    </div>
+
+    <div class="container-md main-content" id="mainContent">
+        <h1 class="text-center">Official Announcements</h1>
+        <br>
+        <div class="mb-4">
+            <input type="text" class="form-control" placeholder="Search announcements...">
+        </div>
+
+        <div class="announcement-card card">
+            <div class="card-body">
+                <h5 class="card-title"><a href="#">New Examination Guidelines</a></h5>
+                <p class="card-text">Announcer: Staff - Mrs. Adewale</p>
+                <p class="card-text"><small class="text-muted">Announced on: 29th Dec 2024</small></p>
+                <p class="card-text">Please adhere to the new guidelines for the upcoming exams. Ensure to check the notice board for details.</p>
+            </div>
+        </div>
+
+        <div class="announcement-card card">
+            <div class="card-body">
+                <h5 class="card-title"><a href="#">Updated Academic Calendar</a></h5>
+                <p class="card-text">Announcer: Staff - Dr. Obi</p>
+                <p class="card-text"><small class="text-muted">Announced on: 28th Dec 2024</small></p>
+                <p class="card-text">The academic calendar has been updated. Please visit the portal for the full schedule.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Profile dropdown menu
+        const profileDropdown = document.getElementById('profileDropdown');
+        const profileDropdownMenu = document.getElementById('profileDropdownMenu');
+        profileDropdown.addEventListener('click', () => {
+            profileDropdownMenu.style.display = profileDropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+        document.addEventListener('click', (event) => {
+            if (!profileDropdown.contains(event.target)) {
+                profileDropdownMenu.style.display = 'none';
+            }
+        });
+
+        // Sidebar toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('full-width');
+        });
+    </script>
+</body>
+</html>

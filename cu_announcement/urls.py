@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from django.views.generic import RedirectView
 
 
 
@@ -26,6 +27,8 @@ admin.site.index_title = "Dev Admin"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", RedirectView.as_view(url="/announcements/", permanent=False)), # redirect users to announcements/ when they request temporarily
+    path('announcements/', include("announcements.urls")),
     path('user/', include("django.contrib.auth.urls")),
     path('user/', include("user.urls"))
 ]
