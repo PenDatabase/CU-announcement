@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Announcement(models.Model):
     announcement_categories = [
+        ('Official', 'Official'),
         ('Academic','Academic'),
         ('Events','Events'),
         ('Lost_Found', 'Lost & Found'),
@@ -35,6 +36,8 @@ class Announcement(models.Model):
     def __str__(self):
         return self.title
     
+    class Meta:
+        ordering = ["-post_time"]
     
 
 class Comment(models.Model):

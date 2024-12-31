@@ -8,28 +8,32 @@
 
         <div class="mb-4 me-4 row">
             <div class="col-6 col-md-4 ms-auto">
-                <input type="text" class="form-control border border-primary" placeholder="Search announcements...">
+                <form action="{% url 'official_page_search' %}" method="get">
+                    <input type="text" name="search_phrase" class="form-control border border-primary" placeholder="Search announcements...">
+                    <button type="submit">Search</button>
+                </form>
             </div>
         </div>
         
+        
+        {% if result_count %}
+            <div class="align-self-center">{{ result_count }} announcements found</div>
+        {% endif %}
+            
+        
+        {% for announcement in announcements %}
+            <div class="announcement-card card me-4">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="#">{{ announcement.title }}</a></h5>
+                    <p class="card-text">Staff: <span class="text-warning">{{ announcement.announcer.office }}</span></p>
+                    <p class="card-text"><small class="text-muted">Announced on: {{ announcement.post_time.date }}</small></p>
+                    <p class="card-text">{{ announcement.content |slice:50 }}...</p>
+                </div>
+            </div>    
+        {% endfor %}
+            
+        
 
-        <div class="announcement-card card">
-            <div class="card-body">
-                <h5 class="card-title"><a href="#">New Examination Guidelines</a></h5>
-                <p class="card-text">Announcer: Staff - Mrs. Adewale</p>
-                <p class="card-text"><small class="text-muted">Announced on: 29th Dec 2024</small></p>
-                <p class="card-text">Please adhere to the new guidelines for the upcoming exams. Ensure to check the notice board for details.</p>
-            </div>
-        </div>
-
-        <div class="announcement-card card">
-            <div class="card-body">
-                <h5 class="card-title"><a href="#">Updated Academic Calendar</a></h5>
-                <p class="card-text">Announcer: Staff - Dr. Obi</p>
-                <p class="card-text"><small class="text-muted">Announced on: 28th Dec 2024</small></p>
-                <p class="card-text">The academic calendar has been updated. Please visit the portal for the full schedule.</p>
-            </div>
-        </div>
-    </div>
+        
 {% endblock body %}
     
