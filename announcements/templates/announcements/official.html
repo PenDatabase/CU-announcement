@@ -8,7 +8,7 @@
 
         <div class="mb-4 me-4 row">
             <div class="col-6 col-md-4 ms-auto">
-                <form action="{% url 'official_page_search' %}" method="get">
+                <form action="{% url 'announcements_search' 'official' %}" method="get">
                     <input type="text" name="search_phrase" class="form-control border border-primary" placeholder="Search announcements...">
                     <button type="submit">Search</button>
                 </form>

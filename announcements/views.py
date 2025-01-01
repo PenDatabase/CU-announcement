@@ -1,5 +1,6 @@
-from django.shortcuts import redirect, render
-# from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
+from django.shortcuts import render
+from django.http import Http404
+from .utils import announcement_search
 from .models import Announcement
 
 # Create your views here.
@@ -24,29 +25,12 @@ def official(request):
 
 
 
-def official_search(request):
-    pass
-    # keyphrase = request.GET.get("search_phrase")
-    # results = Announcement.objects.none()
-    # if keyphrase:
-    #     vector = (
-    #         SearchVector('title', weight="A") +
-    #         SearchVector('announcer__office', weight="A") +
-    #         SearchVector('content', weight="B")
-    #         )
-    #     search_query = SearchQuery(keyphrase)
-
-    #     results = Announcement.objects.annotate(
-    #         rank=SearchRank(vector, search_query)
-    #     ).filter(rank__gte=0.1).order_by('-rank')
-    #     return render(request,
-    #                   "announcements/official.html", 
-    #                   {"announcements": results,
-    #                    "result_count": results.count()}
-    #                    )
-    
-    # return render(request,
-    #                   "announcements/official.html", 
-    #                   {"announcements": results,
-    #                    "result_count": results.count()}
-    #                    )
+def search_announcements_view(request, page):
+    search_phrase = request.GET.get("search_phrase").strip()
+    announcements = announcement_search(search_phrase, page)
+    if page == "official":
+        return render(request, "announcements/official.html", {"announcements": announcements})
+    # elif page == "event":
+    #     return render(request, )
+    else:
+        return Http404("This is a wrong url")
